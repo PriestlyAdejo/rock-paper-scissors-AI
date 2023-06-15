@@ -5,17 +5,14 @@
 // Each value in the game has a precdence.
 let computerScore = 0;
 let userScore = 0;
-let getUserChoice = prompt("Enter your Choice (Rock, Paper or Scissors)", "")
-let getComputerChoice = Math.floor(Math.random() * 3)
 
-console.log("AFTER INITIAL DEFS")
 
-function playRound (userChoice, computerChoice) {
-    let choicesArr = ["rock", "paper", "scissors"]
-    let computerChoiceStr = choicesArr[computerChoice]
-    let userChoiceClean = userChoice.toLowerCase().replace("/\/g", '')
-
-    console.log(userChoice)
+function playRound () {
+    let getUserChoice = prompt("Enter your Choice (Rock, Paper or Scissors)", "")
+    let getComputerChoice = Math.floor(Math.random() * 3)
+    let choicesArr = ["rock", "paper", "scissors", "r", "p", "s"]
+    let computerChoiceStr = choicesArr[getComputerChoice]
+    let userChoiceClean = getUserChoice.toLowerCase().replace("/\/g", '')
 
     if (computerChoiceStr == "rock") {
 
@@ -37,7 +34,7 @@ function playRound (userChoice, computerChoice) {
             return "user wins"
         }
 
-    } else {
+    } else if (computerChoiceStr == "scissors") {
 
         if (userChoiceClean == "rock") {
             return "user wins"
@@ -58,21 +55,16 @@ function incrementScores (prevRound) {
     }
 }
 
-function playMatch (userChoiceFunc = getUserChoice(),
-                    computerChoiceFunc = getComputerChoice(),
-                    totalRounds = 5) {
-    do {
-        prevRound = playRound(userChoiceFunc, computerChoiceFunc)
+function playMatch (totalRounds = 5) {
+    let prevRound;
+    while (userScore < totalRounds && computerScore < totalRounds) {
+        prevRound = playRound()
         incrementScores(prevRound)
+        alert(`${prevRound} ---> Playing for best out of ${totalRounds}
+               ComputerScore: ${computerScore} | UserScore: ${userScore}`)
+    }
 
-        console.log(`Computer Score: ${computerScore}, User Score: ${userScore}`)
-        if (computerScore || userScore) {
-            debugger;
-         }
-
-
-    } while ((computerScore != totalRounds) || (userScore !=totalRounds))
-
+    alert(`${totalRounds} rounds were played:`)
     if (computerScore > userScore) {
         alert(`Computer won the match! ComputerScore: ${computerScore},
         UserScore: ${userScore}`)
@@ -82,5 +74,4 @@ function playMatch (userChoiceFunc = getUserChoice(),
     }
 }
 
-// Playing our game
-playMatch()
+playMatch(5)
