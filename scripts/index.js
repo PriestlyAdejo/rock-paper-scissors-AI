@@ -44,6 +44,8 @@ const game = (bestOutOf=5) => {
                 playerHand.style.animation = "shakePlayer 2s ease"
                 computerHand.style.animation = "shakeComputer 2s ease"
 
+                console.log(`IS GAME OVER?: ${isGameOver()}`)
+
             })
         });   
     };
@@ -101,19 +103,14 @@ const game = (bestOutOf=5) => {
         computerScore.textContent = cScore;
     };
 
-    startGame()
+    // Function to check if game is over
+    const isGameOver = () => {return (cScore >= bestOutOf) || (pScore >= bestOutOf)};
 
-    // Main game while loop
-    do {
-        playMatch()
-    } while ((cScore < bestOutOf) || (pScore < bestOutOf))
+    startGame();
+    playMatch();    
 
-    // Display screen to show winner
-    if (cScore < pScore) {
-        console.log("Player Won!")
-    } else {
-        console.log("Computer Won!")
-    }
+    
+
 
 }
 
