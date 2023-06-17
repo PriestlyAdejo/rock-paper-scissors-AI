@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors with UI</title>
+    <link rel="stylesheet" href="./styles/rpc-style.css">
+  </head>
+  <body>
+    <script src="./scripts/main.js" defer></script>
+    
+    <div class="introFrame">
+      <div class="rpsItems"> <!-- Add a "hidden" class when cpu choosing -->
+        <button class="rock"><img src="./imgs/raised-fist_270a.png" alt="Rock" class="rock"></button>
+        <button class="paper"><img src="./imgs/raised-back-of-hand_1f91a.png" alt="Paper" class="paper"></button>
+        <button class="sccissors"><img src="./imgs/victory-hand_270c-fe0f.png" alt="Scissors" class="scissors"></button>
+      </div>
+    </div>
+
+    <div class="gameFrame">
+      <div class="top container">
+        <div class="userName">
+          <button class="playerName"><h3>CPUNAME</h3></button>  
+        </div>
+
+        <div class="rpsItems"> <!-- Add a "hidden" class when cpu choosing -->
+          <button class="rock"><img src="./imgs/raised-fist_270a.png" alt="Rock" class="rock"></button>
+          <button class="paper"><img src="./imgs/raised-back-of-hand_1f91a.png" alt="Paper" class="paper"></button>
+          <button class="sccissors"><img src="./imgs/victory-hand_270c-fe0f.png" alt="Scissors" class="scissors"></button>
+        </div>
+
+        <div class="emojiScore">
+          <button class="emoji-progress"><img src="./imgs/melting-face_1fae0.png" alt="emoji-progress" class="emoji-progress"></button>
+        </div>
+      </div>
+
+      <div class="middle container">
+        <div class="container left">
+          <button class="settings-gear">
+            <img src="./imgs/settings-gear.png" alt="Settings" class="settings-button">
+          </button>
+          <button class="toggle sound">
+            <img src="./imgs/speaker-low-volume_1f508.png" alt="Toggle Sound" class="sound-button">
+          </button>
+        </div>
+
+        <div class="centerCircle"> <!-- Add other floating hand items -->
+          <div class="resetGame"><h3>Restart Game</h3></div>
+        </div>
+        
+        <div class="container right">
+          <div class="cpuScore">
+            <button class="score"><h3>0</h3></button>
+          </div>
+          <div class="playerScore">
+            <button class="score"><h3>0</h3></button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bottom container">
+        <div class="userName">
+          <button class="playerName"><h3>PLAYERNAME</h3></button>  
+        </div>
+
+        <div class="rpsItems">
+          <button class="rock"><img src="./imgs/raised-fist_270a.png" alt="Rock" class="rock"></button>
+          <button class="paper"><img src="./imgs/raised-back-of-hand_1f91a.png" alt="Paper" class="paper"></button>
+          <button class="sccissors"><img src="./imgs/victory-hand_270c-fe0f.png" alt="Scissors" class="scissors"></button>
+        </div>
+
+        <div class="emojiScore">
+          <button class="emoji-progress"><img src="./imgs/melting-face_1fae0.png" alt="emoji-progress" class="emoji-progress"></button>
+        </div>
+      </div>
+
+    </div>
+    
+
+  </body>
+</html>

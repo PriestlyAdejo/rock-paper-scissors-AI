@@ -1,77 +1,121 @@
-'use strict';
+const game = (bestOutOf=5) => {
+    let pScore = 0;
+    let cScore = 0;
 
-// Simple Rock Paper Scissors Game
-// 0 is Rock, 1 is Paper, 2 is Scissors!
-// Each value in the game has a precdence.
-let computerScore = 0;
-let userScore = 0;
+    // Start the game
+    const startGame = () => {
+        const playBtn = document.querySelector(".intro button");
+        const introScreen = document.querySelector(".intro");
+        const match = document.querySelector(".match");
 
+        playBtn.addEventListener("click", () => {
+            introScreen.classList.add("fadeOut");
+            match.classList.add("fadeIn");
+            match.classList.remove("fadeOut");
+        })
+    };
 
-function playRound () {
-    let getUserChoice = prompt("Enter your Choice (Rock, Paper or Scissors)", "")
-    let getComputerChoice = Math.floor(Math.random() * 3)
-    let choicesArr = ["rock", "paper", "scissors", "r", "p", "s"]
-    let computerChoiceStr = choicesArr[getComputerChoice]
-    let userChoiceClean = getUserChoice.toLowerCase().replace("/\/g", '')
+    // Play match
+    const playMatch = () => {
+        const options = document.querySelectorAll(".options button");
+        const playerHand = document.querySelector(".player-hand");
+        const computerHand = document.querySelector(".computer-hand");
+        const hands = document.querySelectorAll(".hands img");
+        const computerOptions = ["rock", "paper", "scissors"];
 
-    if (computerChoiceStr == "rock") {
+        hands.forEach(hand => {
+            hand.addEventListener("animationend", function () {
+                this.style.animation = ""
+            });
+        })
+        
+        options.forEach(option => {
+            option.addEventListener("click", function() {
+                const computerNumber = Math.floor(Math.random() * 3); 
+                const computerChoice = computerOptions[computerNumber];
+                
+                setTimeout(() => {
+                    compareHands(this.textContent, computerChoice);
+                    updateScore();
+                    updateImage(this.textContent, playerHand);
+                    updateImage(computerChoice, computerHand);
+                }, 2000)
+                
+                playerHand.style.animation = "shakePlayer 2s ease"
+                computerHand.style.animation = "shakeComputer 2s ease"
 
-        if (userChoiceClean == "rock") {
-            return "tie"
-        } else if (userChoiceClean == "paper") {
-            return "user wins"
-        } else {
-            return "computer wins"
-        }
+            })
+        });   
+    };
 
-    } else if (computerChoiceStr == "paper") {
+    const compareHands = (playerChoice, computerChoice) => {
+        const winner = document.querySelector(".winner")
 
-        if (userChoiceClean == "rock") {
-            return "computer wins"
-        } else if (userChoiceClean == "paper") {
-            return "tie"
-        } else {
-            return "user wins"
-        }
+        if (playerChoice === computerChoice) {
+            winner.textContent = "It's a Tie!";
+            return ;
+        } else if (playerChoice === "rock") {
+            if (computerChoice === "scissors") {
+                winner.textContent = "Player Wins!"
+                pScore++
+            } else {
+                winner.textContent = "Computer Wins!";
+                cScore++
+            }
+            return;
+        } else if (playerChoice === "paper") {
+            if (computerChoice === "rock") {
+                winner.textContent = "Player Wins!"
+                pScore++
+            } else {
+                winner.textContent = "Computer Wins!";
+                cScore++
+            }
+            return;
+        } else if (playerChoice === "scissors") {
+            if (computerChoice === "paper") {
+                winner.textContent = "Player Wins!"
+                pScore++
+            } else {
+                winner.textContent = "Computer Wins!";
+                cScore++
+            }
+            return;
+        };
+    };
 
-    } else if (computerChoiceStr == "scissors") {
+    const updateImage = (imgChoice, srcObj) => {
+        if (imgChoice === "rock") {
+            srcObj.src = `./imgs/raised-fist_270a.png`;
+        } else if (imgChoice === "paper") {
+            srcObj.src = `./imgs/waving-hand_1f44b.png`;
+        } else if (imgChoice === "scissors") {
+            srcObj.src = `./imgs/victory-hand_270c-fe0f.png`;
+        };
+    };
 
-        if (userChoiceClean == "rock") {
-            return "user wins"
-        } else if (userChoiceClean == "paper") {
-            return "computer wins"
-        } else {
-            return "tie"
-        }
-    }
-}
+    const updateScore = () => {
+        const playerScore = document.querySelector(".player-score p");
+        const computerScore = document.querySelector(".computer-score p");
+        playerScore.textContent = pScore;
+        computerScore.textContent = cScore;
+    };
 
-// Function only increments scores does not return them.
-function incrementScores (prevRound) {
-    if (prevRound == "user wins") {
-        userScore++ // Uses next value in increment
-    } else if (prevRound == "computer wins") {
-        computerScore++
-    }
-}
+    startGame()
 
-function playMatch (totalRounds = 5) {
-    let prevRound;
-    while (userScore < totalRounds && computerScore < totalRounds) {
-        prevRound = playRound()
-        incrementScores(prevRound)
-        alert(`${prevRound} ---> Playing for best out of ${totalRounds}
-               ComputerScore: ${computerScore} | UserScore: ${userScore}`)
-    }
+    // Main game while loop
+    do {
+        playMatch()
+    } while ((cScore < bestOutOf) || (pScore < bestOutOf))
 
-    alert(`${totalRounds} rounds were played:`)
-    if (computerScore > userScore) {
-        alert(`Computer won the match! ComputerScore: ${computerScore},
-        UserScore: ${userScore}`)
+    // Display screen to show winner
+    if (cScore < pScore) {
+        console.log("Player Won!")
     } else {
-        alert(`User won the match! ComputerScore: ${computerScore},
-        UserScore: ${userScore}`)
+        console.log("Computer Won!")
     }
+
 }
 
-playMatch(5)
+// Running entire game.
+game()
